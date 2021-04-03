@@ -55,7 +55,7 @@
                 <div class="row align-items-center g-5 py-5">
                     <img class="imgTagSignUp" src="images/img1.jpg" alt="SignUpImage">
                   <div class="col-10 mx-auto col-lg-5" id="div-login">
-                    <form class="p-5 border rounded-3 bg-light">
+                    <form class="containerSignUp border rounded-3 bg-light">
                       <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="input-username" placeholder="name@example.com">
                         <label for="floatingInput">Email address/User Name</label>
@@ -74,7 +74,7 @@
                     </form>
                   </div>
                   <div class="col-10 mx-auto col-lg-5 hidden" id="div-forgotPassword">
-                    <form class="p-5 border rounded-3 bg-light">
+                    <form class="containerForgotPass border rounded-3 bg-light">
                       <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="input-Fusername" placeholder="name@example.com">
                         <label for="floatingInput">Email address/User Name</label>
@@ -110,6 +110,9 @@
                       <li><a href="#" class="footerNav nav-link px-2 text-white pr-3">Feedback</a></li>
                       <li><a href="#" class="footerNav nav-link px-2 text-white pr-3">SiteMap</a></li>
                     </ul>
+                    <small class='footerNav nav-link px-2 text-white pr-3 hidden' id='id-lastlogin'> 
+                        Last Login was on : ---------
+                      </small>
                 </div>
             </div>
         </footer>
@@ -204,6 +207,8 @@
 function API_Login(uname,pass){
     console.log('API_Login');
     sessionStorage.removeItem("NAME");
+    sessionStorage.removeItem("Uname");
+
     $.ajax(loginAPI, {
       type: 'POST',  // http method
       data: { username: uname , password : pass },  // data to submit
@@ -216,11 +221,13 @@ function API_Login(uname,pass){
                 console.log('Invalid Login password');
                 alert('Invalid login password');
                 sessionStorage.removeItem("NAME");
+                sessionStorage.removeItem("Uname");
                 ArrangeHeader();
   
             }
             else{
              sessionStorage.setItem("NAME",result[0].firstname);
+             sessionStorage.setItem("Uname",uname);
              ArrangeHeader();
              window.location.href = "index.html";
             }
@@ -247,7 +254,6 @@ function API_Login(uname,pass){
       $('#id-head-login').removeClass('hidden');
     }
  }
-
 
 
 </script>

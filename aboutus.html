@@ -69,6 +69,9 @@
                       <li><a href="#" class="footerNav nav-link px-2 text-white pr-3">Feedback</a></li>
                       <li><a href="#" class="footerNav nav-link px-2 text-white pr-3">SiteMap</a></li>
                     </ul>
+                    <small class='footerNav nav-link px-2 text-white pr-3 hidden' id='id-lastlogin'> 
+                            Last Login was on : ---------
+                          </small>
                 </div>
             </div>
         </footer>
@@ -77,6 +80,7 @@
 <script>
   $(document).ready(function(){
     ArrangeHeader();
+    API_getLastLogin();
   });
 
   $('#id-signout').click(()=>{
@@ -101,4 +105,36 @@
       $('#id-head-login').removeClass('hidden');
     }
 }
+
+ 
+function API_getLastLogin(){
+   console.log('API_getLastLogin');
+   var uname =  sessionStorage.getItem("Uname");
+   if (uname != null){
+        $.ajax(getLastLogin, {
+        type: 'POST',  // http method
+        data: { username: uname },  // data to submit
+        success: function (data, status, xhr) {
+                console.log(data);
+                if(data.length > 0 ){
+                    var result = data[0];
+                    console.log(result[0].last_logIn);
+                    if($('#id-lastlogin').hasClass('hidden'))
+                    {
+                      $('#id-lastlogin').empty();
+                      $('#id-lastlogin').append('Last login : '+ result[0].last_logIn);
+                      $('#id-lastlogin').removeClass('hidden');
+                    }
+                  }
+                },
+          error: function (jqXhr, textStatus, errorMessage) {
+                  console.log(errorMessage);
+                }
+         });
+    }else{
+      if(!$('#id-lastlogin').hasClass('hidden')){
+        $('#id-lastlogin').addClass('hidden');
+      }
+    }
+  }
 </script>

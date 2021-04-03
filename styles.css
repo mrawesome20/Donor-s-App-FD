@@ -8,7 +8,9 @@ body
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto;
+	margin: auto;
+	height:500px;
+	width:1100px;
 }
 .carousel-inner {
     background-color: grey;
@@ -439,3 +441,64 @@ body {
 	    margin: 44px 0 30px;
 	}
 }
+.containerSignUp{
+	padding: 3rem !important;
+}
+.containerForgotPass{
+	padding: 3rem !important;
+}
+@media (min-width: 1200px)  and (max-width: 1700px) {
+	.imgTagSliderImage{
+		height:500px !important;
+		width:900px !important;
+	}
+  }
+  @media (min-width: 1400px)  and (max-width: 1700px) {
+	.imgTagSignUp {
+		height: 450px !important;
+		width: 600px !important;
+	}
+	.containerSignUp{
+		padding: 1rem !important;
+		height: 300px !important;
+		width: 500px !important;
+	}
+	.containerForgotPass{
+		padding: 1rem !important;
+		height: 400px !important;
+		width: 500px !important;
+	}
+  }
+
+  @media (min-width: 1200px)  and (max-width: 1399px) {
+	.imgTagSignUp {
+		height: 450px !important;
+		width: 500px !important;
+	}
+	.containerSignUp{
+		padding: 1rem !important;
+		height: 300px !important;
+		width: 500px !important;
+	}
+	.containerForgotPass{
+		padding: 1rem !important;
+		height: 400px !important;
+		width: 500px !important;
+	}
+  }
+  @media (min-width: 1000px)  and (max-width: 1199px) {
+	.imgTagSignUp {
+		height: 450px !important;
+		width: 400px !important;
+	}
+	.containerSignUp{
+		padding: 1rem !important;
+		height: 300px !important;
+		width: 500px !important;
+	}
+	.containerForgotPass{
+		padding: 1rem !important;
+		height: 400px !important;
+		width: 500px !important;
+	}
+  }
