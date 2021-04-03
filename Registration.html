@@ -34,11 +34,6 @@
                         <li class="nav-item"><a href="#" class="nav-link">About Us</a></li>
                         <li class="nav-item"><a href="ProfileSelectPage.html" class="nav-link">Donate</a></li>
                         <li class="nav-item"><a href="SignUpPage.html" class="nav-link active"id="id-head-login" >Login</a></li>
-                        <li class="nav-item pl-5"><a href="#" class="nav-link WelcomeMsgActive" id="id-head-welcomeUser">Welcome ABC</a></li>
-                        <li class="nav-item d-flex justify-content-center align-items-center" id="id-head-img">
-                          <a href="#" class="pl-2">
-                            <img src="images/defaultImg.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
-                        </a>
                       </li>
                       </ul>
                 </header>
@@ -62,7 +57,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <select name="Gender">
+                            <select name="Gender" id='id_gender'>
                                 <option value="null">Not to mention</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -73,7 +68,7 @@
                             </span>
                         </div>
                         <div class="form-row">
-                            <input type="text" name="Dob" class="company" id="Dob" placeholder="Date Of Birth" required>
+                            <input type="text" name="Dob" class="company" id="Dob" placeholder="Date Of Birth" required id='id_username'>
                         </div>
                         <div class="form-group">
                             <div class="form-row form-row-3">
@@ -109,10 +104,10 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <select name="country">
+                            <select name="country" id='id_country'>
                                 <option value="country">Country</option>
-                                <option value="Vietnam">Vietnam</option>
-                                <option value="Malaysia">Malaysia</option>
+                                <option value="us">US</option>
+                                <option value="Canada">Canada</option>
                                 <option value="India">India</option>
                             </select>
                             <span class="select-btn">
@@ -128,16 +123,16 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <input type="text" name="your_email" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Your Email">
+                            <input type="text" name="your_email" id="email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Your Email">
                         </div>
                         <div class="form-checkbox">
                             <label class="container"><p>I do accept the <a href="#" class="text">Terms and Conditions</a> of your site.</p>
-                                  <input type="checkbox" name="checkbox">
+                                  <input type="checkbox" name="checkbox" id="id_TC">
                                   <span class="checkmark"></span>
                             </label>
                         </div>
                         <div class="form-row-last">
-                            <input type="submit" name="register" class="register" value="Register">
+                            <input type="button" name="register" class="register" value="Register" id='id_register'>
                         </div>
                     </div>
                 </form>
@@ -161,9 +156,43 @@
   </body>
 </html>
 <script>
+    var TC = false;
     $(document).ready(function(){
     
     });
+
+    $('#id_register').click(()=>{
+        if(TC && ($('#password').val() == $('#cpassword').val())){
+        uname =  $('#username').val() ; 
+        fname = $('#first_name').val() ;  
+        lname = $('#last_name').val() ; 
+        pass = $('#password').val() ;  
+        gender = $('#id_gender').val() ;  
+        dob = $('#Dob').val() ;  Dob
+        street = $('#street').val() ;  
+        zip = $('#zip').val() ;  
+        con = $('#id_country').val() ;  
+        phone  = $('#phone').val() ;  
+        email = $('#email').val() ;  
+        API_Registration(uname,fname,lname,pass,gender,dob,street,zip,con,phone,email);
+        }
+        else{
+            if(TC){
+                alert('Please select terms and condition');
+            }else if($('#password').val() !== $('#cpassword').val()){
+                alert('Password Not matches');
+            }
+        }
+       
+    });
+
+    $("#id_TC").click(function () {
+            if ($(this).is(":checked")) {
+               TC = true;
+            } else {
+               TC = false;
+            }
+        });
 
    function ArrangeHeader(){
     let user = sessionStorage.getItem("NAME");
@@ -180,4 +209,76 @@
         $('#id-head-login').removeClass('hidden');
       }
   }
+
+  
+function API_Registration(uname,fname,lname,pass,gender,dob,street,zip,con,phone,email)
+{
+    debugger
+    console.log('API_Registration');
+    sessionStorage.removeItem("NAME");
+    $.ajax(registerDonor, {
+      type: 'POST',  // http method
+      data: { 
+             username: uname ,
+             firstname : fname,
+             lastname : lname,
+             gender : gender,
+             Dob : dob,    
+             password : pass,
+             street : street,
+             zipcode : zip,
+             city:'',
+             country : con,
+             phone:phone,
+             emailid:email
+            },  // data to submit
+      success: function (data, status, xhr) {
+           console.log(data);
+          if(data.length > 0 ){
+            let result = data[0];
+            if(result[0].firstname == 'inserted')
+            {
+              alert('Registration Completed');
+              API_Login(uname,pass);
+            }
+          }
+      },
+      error: function (jqXhr, textStatus, errorMessage) {
+             console.log(errorMessage);
+      }
+    });
+   }
+
+    
+
+function API_Login(uname,pass){
+    console.log('API_Login');
+    sessionStorage.removeItem("NAME");
+    $.ajax(loginAPI, {
+      type: 'POST',  // http method
+      data: { username: uname , password : pass },  // data to submit
+      success: function (data, status, xhr) {
+          if(data.length > 0 ){
+            var result = data[0];
+            console.log(result[0].firstname);
+            if(result[0].firstname == 'lock')
+            {
+                console.log('Invalid Login password');
+                alert('Invalid login password');
+                sessionStorage.removeItem("NAME");
+                ArrangeHeader();
+  
+            }
+            else{
+             sessionStorage.setItem("NAME",result[0].firstname);
+             ArrangeHeader();
+             window.location.href = "index.html";
+            }
+          }
+      },
+      error: function (jqXhr, textStatus, errorMessage) {
+             console.log(errorMessage);
+      }
+    });
+   }
   </script>

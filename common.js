@@ -1,3 +1,10 @@
+var API = 'http://localhost:8013/api/';
+var loginAPI = API + '/logincheck';
+var forgotPasswordAPI = API + '/changepassword';
+var registerDonor = API + '/donorSignup';
+var getAllReciever = API + '/getAllReciever';
+
+
 function SetUserName(username){
     sessionStorage.setItem("username", username)
 }
