@@ -213,7 +213,6 @@
   
 function API_Registration(uname,fname,lname,pass,gender,dob,street,zip,con,phone,email)
 {
-    debugger
     console.log('API_Registration');
     sessionStorage.removeItem("NAME");
     $.ajax(registerDonor, {
@@ -258,6 +257,7 @@ function API_Login(uname,pass){
       type: 'POST',  // http method
       data: { username: uname , password : pass },  // data to submit
       success: function (data, status, xhr) {
+          console.log(data);
           if(data.length > 0 ){
             var result = data[0];
             console.log(result[0].firstname);

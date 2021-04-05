@@ -1,7 +1,7 @@
-var API = 'http://localhost:8013/api/';
-var loginAPI = API + '/logincheck';
-var forgotPasswordAPI = API + '/changepassword';
-var registerDonor = API + '/donorSignup';
+var API = 'http://localhost:3987/';
+var loginAPI = API + 'logincheck';
+var forgotPasswordAPI = API + 'UpdatePassword';
+var registerDonor = API + 'register';
 var getAllReciever = API + '/getAllReciever';
 var getLastLogin = API + '/getLastLogin';
 
