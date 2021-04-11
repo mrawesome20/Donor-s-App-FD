@@ -215,7 +215,7 @@ function API_Registration(uname,fname,lname,pass,gender,dob,street,zip,con,phone
 {
     console.log('API_Registration');
     sessionStorage.removeItem("NAME");
-    $.ajax(registerDonor, {
+    $.ajax(registerDonorAPI, {
       type: 'POST',  // http method
       data: { 
              username: uname ,
@@ -239,6 +239,10 @@ function API_Registration(uname,fname,lname,pass,gender,dob,street,zip,con,phone
             {
               alert('Registration Completed');
               API_Login(uname,pass);
+            }
+            else if(result[0].firstname == 'exists')
+            {
+              alert('USername already Registered');
             }
           }
       },

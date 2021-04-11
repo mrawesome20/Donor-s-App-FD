@@ -111,18 +111,16 @@ function API_getLastLogin(){
    console.log('API_getLastLogin');
    var uname =  sessionStorage.getItem("Uname");
    if (uname != null){
-        $.ajax(getLastLogin, {
+        $.ajax(getLastLoginAPI, {
         type: 'POST',  // http method
         data: { username: uname },  // data to submit
         success: function (data, status, xhr) {
                 console.log(data);
                 if(data.length > 0 ){
-                    var result = data[0];
-                    console.log(result[0].last_logIn);
                     if($('#id-lastlogin').hasClass('hidden'))
                     {
                       $('#id-lastlogin').empty();
-                      $('#id-lastlogin').append('Last login : '+ result[0].last_logIn);
+                      $('#id-lastlogin').append('Last login : '+ data[0].last_login);
                       $('#id-lastlogin').removeClass('hidden');
                     }
                   }

@@ -23,7 +23,7 @@
         <!-- Header bar and Navigation Menu  -->
         <div class="container">
             <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-              <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+              <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                 <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
                 <span class="fs-4">Welcome to Donor's Club</span>
               </a>          
@@ -36,7 +36,7 @@
                 <li class="nav-item pl-5"><a href="#" class="nav-link WelcomeMsgActive" id="id-head-welcomeUser">Welcome ABC</a></li>
                 <div class="dropdown text-end">
                 <li class="nav-item d-flex justify-content-center align-items-center" id="id-head-img">
-                  <a a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pl-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a a href="" class="d-block link-dark text-decoration-none dropdown-toggle pl-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="images/defaultImg.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
@@ -84,6 +84,17 @@
                 </div>
             </div>
         </footer>
+
+        
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close" id="btn-modal-close">&times;</span>
+      <p>Some text in the Modal..</p>
+    </div>
+</div>
+  
   </body>
 </html>
 <script>
@@ -119,19 +130,20 @@
 
 function API_getAllReciver(){
     console.log('API_getAllReciver');
-    $.ajax(getAllReciever, {
+    $.ajax(getAllRecieverAPI, {
       type: 'POST',  // http method
       data: {  },  // data to submit
       success: function (data, status, xhr) {
+        console.log(data);
           if(data.length > 0 ){
-            var result = data[0];
-            console.log(result.length);
+            // var result = data[0];
+            // console.log(result.length);
             var html = '';
-            for(var i = 0; i < result.length ; i++){
+            for(var i = 0; i < data.length ; i++){
                 html += '<div class="col" id="id-profile"><div class="card shadow-sm">';
                 html += '<img class="bd-placeholder-img card-img-top" src="images/noImage.jpg" alt="mdo" width="100%" height="225">';
                 html += '<div class="card-body">';
-                html += '<p class="card-text">' + result[i].description + '</p>';
+                html += '<p class="card-text">' + data[i].description + '</p>';
                 html += ' <div class="d-flex justify-content-between align-items-center">';
                 html += '<div class="btn-group">';
                 html += '<button type="button" class="btn btn-sm btn-outline-secondary">Donate</button>';
@@ -153,18 +165,16 @@ function API_getLastLogin(){
    console.log('API_getLastLogin');
    var uname =  sessionStorage.getItem("Uname");
    if (uname != null){
-        $.ajax(getLastLogin, {
+        $.ajax(getLastLoginAPI, {
         type: 'POST',  // http method
         data: { username: uname },  // data to submit
         success: function (data, status, xhr) {
                 console.log(data);
                 if(data.length > 0 ){
-                    var result = data[0];
-                    console.log(result[0].last_logIn);
                     if($('#id-lastlogin').hasClass('hidden'))
                     {
                       $('#id-lastlogin').empty();
-                      $('#id-lastlogin').append('Last login : '+ result[0].last_logIn);
+                      $('#id-lastlogin').append('Last login : '+ data[0].last_login);
                       $('#id-lastlogin').removeClass('hidden');
                     }
                   }
