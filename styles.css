@@ -490,6 +490,22 @@ body {
     padding-top: 1rem !important;
 }
 
+.profilecardtitle{
+	padding-left: 1.25rem;
+	padding-top: 1rem;
+	padding-right: 1.25rem;
+}
+
+.admintableheader{
+	background: white;
+	height: 70px;
+	display: FLEX;
+	justify-content: center;
+	align-items: center;
+	font-size: 2rem;
+	color: #6c757d!important;
+	font-family: 'Circular Std Medium';
+}
 .material-icons{
 	cursor:  pointer;
 }

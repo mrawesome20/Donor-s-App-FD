@@ -134,8 +134,20 @@
 <script>
     var TC = false;
     $(document).ready(function(){
+        if(sessionStorage.getItem("NAME") == null){
+            window.location.href = "index.html";
+        }else if(sessionStorage.getItem("NAME").toLowerCase() !== 'admin'){
+                window.location.href = "index.html";
+            }
         ArrangeHeader();
     });
+
+    $('#id-signout').click(()=>{
+        sessionStorage.removeItem("NAME");
+        sessionStorage.removeItem("Uname");
+        window.location.href = "index.html";
+    });
+
 
     $('#id_register').click(()=>{
         var desc =  $('#id-desc').val() ; 

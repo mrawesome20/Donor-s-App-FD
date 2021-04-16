@@ -98,7 +98,7 @@
  function ArrangeHeader(){
   let user = sessionStorage.getItem("NAME");
     if(user !== null){
-        if(user == 'guest' || user == 'Anonymous'){
+        if(user.toLowerCase() == 'guest' || user.toLowerCase() == 'anonymous'){
           if(!$('#id-profileupdate').hasClass('hidden'))
           {
             $('#id-profileupdate').addClass('hidden');
@@ -111,7 +111,7 @@
           {
             $('#id-addreciever').addClass('hidden');
           }
-        }else if (user == 'admin' || user == 'Admin'){
+        }else if (user.toLowerCase() == 'admin' || user == 'Admin'){
           if(!$('#id-profileupdate').hasClass('hidden'))
           {
             $('#id-profileupdate').addClass('hidden');
@@ -139,13 +139,15 @@
           }
         }
         $('#id-head-login').addClass('hidden');
-        $('#id-head-welcomeUser').removeClass('hidden');
+        
+          $('#id-head-welcomeUser').removeClass('hidden');
+        
         $('#id-head-img').removeClass('hidden');    
         $('#id-head-welcomeUser').empty();
         $('#id-head-welcomeUser').append('Welcome '+ user);      
     }
     else{
-      $('#id-head-welcomeUser').addClass('hidden');
+      $('#id-head-welcomeUser').addClass('hidden');      
       $('#id-head-img').addClass('hidden');
       $('#id-head-login').removeClass('hidden');
     }

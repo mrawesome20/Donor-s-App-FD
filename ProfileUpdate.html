@@ -172,6 +172,9 @@
 <script>
     var TC = true;
     $(document).ready(function(){
+        if(sessionStorage.getItem("NAME").toLowerCase() == 'admin' || sessionStorage.getItem("NAME").toLowerCase() == 'guest' || sessionStorage.getItem("NAME").toLowerCase() == 'anonymous'){
+            window.location.href = "index.html";
+        }
         ArrangeHeader();
         API_GetDonorData();
     });
@@ -219,7 +222,7 @@
  function ArrangeHeader(){
   let user = sessionStorage.getItem("NAME");
     if(user !== null){
-        if(user == 'guest' || user == 'Anonymous'){
+        if(user.toLowerCase() == 'guest' || user.toLowerCase() == 'anonymous'){
           if(!$('#id-profileupdate').hasClass('hidden'))
           {
             $('#id-profileupdate').addClass('hidden');
@@ -232,7 +235,7 @@
           {
             $('#id-addreciever').addClass('hidden');
           }
-        }else if (user == 'admin' || user == 'Admin'){
+        }else if (user.toLowerCase() == 'admin' || user == 'Admin'){
           if(!$('#id-profileupdate').hasClass('hidden'))
           {
             $('#id-profileupdate').addClass('hidden');

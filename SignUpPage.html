@@ -292,7 +292,7 @@ function API_Login(uname,pass){
  function ArrangeHeader(){
   let user = sessionStorage.getItem("NAME");
     if(user !== null){
-        if(user == 'guest' || user == 'Anonymous'){
+        if(user.toLowerCase() == 'guest' || user.toLowerCase() == 'anonymous'){
           if(!$('#id-profileupdate').hasClass('hidden'))
           {
             $('#id-profileupdate').addClass('hidden');
@@ -305,7 +305,7 @@ function API_Login(uname,pass){
           {
             $('#id-addreciever').addClass('hidden');
           }
-        }else if (user == 'admin' || user == 'Admin'){
+        }else if (user.toLowerCase() == 'admin' || user == 'Admin'){
           if(!$('#id-profileupdate').hasClass('hidden'))
           {
             $('#id-profileupdate').addClass('hidden');

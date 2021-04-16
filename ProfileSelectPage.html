@@ -32,8 +32,8 @@
                 <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="Services.html" class="nav-link">Service</a></li>
                 <li class="nav-item"><a href="aboutus.html" class="nav-link">About Us</a></li>
-                <li class="nav-item"><a href="ProfileSelectPage.html" class="nav-link">Donate</a></li>
-                <li class="nav-item"><a href="SignUpPage.html" class="nav-link active"id="id-head-login" >Login</a></li>
+                <li class="nav-item"><a href="ProfileSelectPage.html" class="nav-link active">Donate</a></li>
+                <li class="nav-item"><a href="SignUpPage.html" class="nav-link"id="id-head-login" >Login</a></li>
                 <li class="nav-item pl-5"><a href="#" class="nav-link WelcomeMsgActive" id="id-head-welcomeUser">Welcome ABC</a></li>
                 <div class="dropdown text-end">
                 <li class="nav-item d-flex justify-content-center align-items-center" id="id-head-img">
@@ -56,7 +56,7 @@
           <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="id-profile-display">
               <div class="col" id="id-profile">
-                <div class="card shadow-sm">                 
+                <div class="card shadow-sm hidden">                 
                   <img class="bd-placeholder-img card-img-top" src="images/noImage.jpg" alt="mdo" width="100%" height="225"> 
                    <div class="card-body">
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -67,9 +67,10 @@
                       </div>                      
                     </div>
                   </div>
-                </div>
+                </div>            
               </div>
-            </div>
+            <!--  -->
+           
           </div>
     </div>
         <!-- footer bar -->
@@ -184,7 +185,7 @@
  function ArrangeHeader(){
   let user = sessionStorage.getItem("NAME");
     if(user !== null){
-        if(user == 'guest' || user == 'Anonymous'){
+        if(user.toLowerCase() == 'guest' || user.toLowerCase() == 'anonymous' ){
           if(!$('#id-profileupdate').hasClass('hidden'))
           {
             $('#id-profileupdate').addClass('hidden');
@@ -197,7 +198,7 @@
           {
             $('#id-addreciever').addClass('hidden');
           }
-        }else if (user == 'admin' || user == 'Admin'){
+        }else if (user.toLowerCase() == 'admin' || user == 'Admin'){
           if(!$('#id-profileupdate').hasClass('hidden'))
           {
             $('#id-profileupdate').addClass('hidden');
@@ -247,19 +248,18 @@ function API_getAllReciver(){
       success: function (data, status, xhr) {
         console.log(data);
           if(data.length > 0 ){
-            // var result = data[0];
-            // console.log(result.length);
+
             var html = '';
             for(var i = 0; i < data.length ; i++){
                 html += '<div class="col" id="id-profile"><div class="card shadow-sm">';
                 html += '<img class="bd-placeholder-img card-img-top" src="images/noImage.jpg" alt="mdo" width="100%" height="225">';
-                html +='<p class="profilecardtitle">'+ data[i].firstname + ' ' + data[i].lastname +'</p>';
+                html +='<h5 class="card-title profilecardtitle">'+ data[i].firstname + ' ' + data[i].lastname +'</h5>';
                 html += '<div class="card-body profilecardbody">';
                 html += '<p class="card-text">' + data[i].description + '</p>';
                 html += ' <div class="d-flex justify-content-between align-items-center">';
                 html += '<div class="btn-group">';
                 html += '<button type="button" class="btn btn-sm btn-outline-secondary" id="id-donate" onclick="onDonateClick('+data[i].id+')">Donate</button>';
-                html += '<button type="button" class="btn btn-sm btn-outline-secondary">Help in other way</button>';
+                // html += '<button type="button" class="btn btn-sm btn-outline-secondary">Help in other way</button>';
                 html += '</div>'; 
                 if(sessionStorage.getItem("NAME") == 'Admin' || sessionStorage.getItem("NAME") == 'admin'){
                   html +='<i class="material-icons" onclick="onDeleteClick('+ data[i].id +')">delete</i>';
