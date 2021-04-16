@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css">
+        <script src="common.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <title>Donor's Club</title>
+      </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <main class="flex-shrink-0">
+        <div>
+            <!-- Header bar and Navigation Menu  -->
+            <div class="container">
+                <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                        <span class="fs-4 font-weight-bold">Welcome to Donor's Club</span>
+                    </a>
+          
+                    <ul class="nav nav-pills">
+                            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                            <li class="nav-item"><a href="Services.html" class="nav-link">Service</a></li>
+                            <li class="nav-item"><a href="aboutus.html" class="nav-link">About Us</a></li>
+                            <li class="nav-item"><a href="ProfileSelectPage.html" class="nav-link">Donate</a></li>
+                            <li class="nav-item"><a href="SignUpPage.html" class="nav-link active"id="id-head-login" >Login</a></li>
+                            <li class="nav-item pl-5"><a href="#" class="nav-link WelcomeMsgActive" id="id-head-welcomeUser">Welcome ABC</a></li>
+                            <div class="dropdown text-end">
+                            <li class="nav-item d-flex justify-content-center align-items-center" id="id-head-img">
+                              <a a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pl-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="images/defaultImg.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                            </a>
+                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                    <li><a class="dropdown-item hidden" href="adminDashboard.html" id="id-admindashboard">Admin Dashboard</a></li>
+                                    <li><a class="dropdown-item hidden" href="ProfileUpdate.html" id="id-profileupdate">Update Profile</a></li>
+                                    <li><a class="dropdown-item hidden" href="RecieverSignUp.html" id="id-addreciever">Add Reciever Profile</a></li>
+                                <li><a class="dropdown-item" href="" id="id-signout">Sign out</a></li>
+                              </ul>
+                            </li>
+                            </div>
+                          </li>
+                          </ul>
+                </header>
+          </div>
+    </div>
+    <div class="adminDashboardRow">
+            <div class="m-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-muted adminDashboardLbl">Total Donation Recieved</h5>
+                        <div class="metric-value d-inline-block">
+                            <h1 class="mb-1 adminDashboardNumber" id='id-total'>$00.00</h1>
+                        </div>
+                        <!-- <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                            <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-muted adminDashboardLbl">Total Donation This Year</h5>
+                        <div class="metric-value d-inline-block">
+                            <h1 class="mb-1 adminDashboardNumber" id='id-year'>$00.00</h1>
+                        </div>
+                        <!-- <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                            <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-muted adminDashboardLbl">Total Donation This Month</h5>
+                        <div class="metric-value d-inline-block">
+                            <h1 class="mb-1 adminDashboardNumber" id='id-month'>$00.00</h1>
+                        </div>
+                        <!-- <div class="metric-label d-inline-block float-right text-primary font-weight-bold">
+                            <span>N/A</span>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12" style="margin:auto;">
+                <div class="card">
+                    <h5 class="card-header" style="background:white;">Recent Donations</h5>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">#</th>
+                                        <th class="border-0">Donor's Name</th>
+                                        <th class="border-0">Donation Amt</th>
+                                        <th class="border-0">Reciever's Name</th>
+                                        <th class="border-0">DateTime</th>
+                                        <th class="border-0">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id='id-tbody'>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>ABC </td>
+                                        <td>$80.00</td>
+                                        <td>Patricia J. King </td>
+                                        <td>27-08-2018 01:22:12</td>
+                                        <td><span class="badge-dot badge-brand mr-1"></span>InTransit </td>
+                                    </tr>                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+        <!-- footer bar -->
+        <footer class="footer mt-auto py-3 bg-light">
+            <div class="container" style="background-color: black;">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+              
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                      <li><a href="#" class="footerNav nav-link px-2 text-secondary pr-3">Contact Us</a></li>
+                      <li><a href="#" class="footerNav nav-link px-2 text-white pr-3">Feedback</a></li>
+                      <li><a href="#" class="footerNav nav-link px-2 text-white pr-3">SiteMap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+  </body>
+</html>
+<script>
+    var TC = false;
+    $(document).ready(function(){
+        ArrangeHeader();
+        GetAllDataFromAPI();
+        GetAllDonation();
+    });
+
+    function GetAllDataFromAPI(){
+        var TotalDonation = 0 ,
+             YearDonation = 0 ,
+             MonthDonation = 0;
+        $.ajax(getYearDonationAPI, {
+            type: 'POST',  // http method
+            data: {  },  // data to submit
+            success: function (data, status, xhr) {
+
+                    console.log(data);
+                    YearDonation = data[0].amt;
+
+                    $.ajax(getMonthDonationAPI, {
+                        type: 'POST',  // http method
+                        data: {  },  // data to submit
+                        success: function (data, status, xhr) {
+                                
+                            console.log(data);
+                            MonthDonation = data[0].amt;
+
+                                $.ajax(getDataDonationAPI, {
+                                   type: 'POST',  // http method
+                                   data: {  },  // data to submit
+                                   success: function (data, status, xhr) {
+                                           
+                                        console.log(data);
+                                        TotalDonation = data[0].amt;
+                                        $('#id-total').empty();
+                                        $('#id-total').append('$ ' + TotalDonation);
+                                        $('#id-month').empty();
+                                        $('#id-month').append('$ ' + MonthDonation);
+                                        $('#id-year').empty();
+                                        $('#id-year').append('$ ' + YearDonation);
+
+                                    },
+                                     error: function (jqXhr, textStatus, errorMessage) {
+                                          console.log(errorMessage);
+                                     }
+                                });
+                            },
+                          error: function (jqXhr, textStatus, errorMessage) {
+                                  console.log(errorMessage);
+                                }
+                    });
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                      console.log(errorMessage);
+            }
+        });
+    }
+
+    function GetAllDonation(){
+        $.ajax(getDonationAPI, {
+            type: 'POST',  // http method
+            data: {  },  // data to submit
+            success: function (data, status, xhr) {         
+                 console.log(data[0]);
+                 var result = data[0];
+                 var html = '';
+                for(var i = 0 ; i < result.length ; i++){
+                    html += '<tr>';
+                    html += '<td>'+ (i+1) +'</td>';
+                    html += '<td>' + result[i].DonorName +' </td>';
+                    html += '<td>$ '+ result[i].donationAmt + '</td>';
+                    html += '<td> ' +  result[i].ReceiverName + ' </td>';
+                    html += '<td> ' + result[i].donationTime+ ' </td>';
+                    html += '<td>Completed</td>';
+                     html +='</tr>'; 
+                }
+                $('#id-tbody').empty();
+                $('#id-tbody').append(html);
+             },
+              error: function (jqXhr, textStatus, errorMessage) {
+                   console.log(errorMessage);
+              }
+        });
+    }
+
+function ArrangeHeader(){
+  let user = sessionStorage.getItem("NAME");
+    if(user !== null){
+        if(user == 'guest' || user == 'Anonymous'){
+          if(!$('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').addClass('hidden');
+          }
+          if(!$('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').addClass('hidden');
+          }
+          if(!$('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').addClass('hidden');
+          }
+        }else if (user == 'admin' || user == 'Admin'){
+          if(!$('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').addClass('hidden');
+          }
+          if($('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').removeClass('hidden');
+          }
+          if($('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').removeClass('hidden');
+          }
+        }else{
+          if($('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').removeClass('hidden');
+          }
+          if(!$('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').addClass('hidden');
+          }
+          if(!$('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').addClass('hidden');
+          }
+        }
+        $('#id-head-login').addClass('hidden');
+        $('#id-head-welcomeUser').removeClass('hidden');
+        $('#id-head-img').removeClass('hidden');    
+        $('#id-head-welcomeUser').empty();
+        $('#id-head-welcomeUser').append('Welcome '+ user);      
+    }
+    else{
+      $('#id-head-welcomeUser').addClass('hidden');
+      $('#id-head-img').addClass('hidden');
+      $('#id-head-login').removeClass('hidden');
+    }
+}
+
+
+   
+  
+  </script>

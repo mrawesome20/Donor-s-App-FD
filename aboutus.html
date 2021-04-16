@@ -29,24 +29,27 @@
               </a>
           
               <ul class="nav nav-pills">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="Services.html" class="nav-link">Service</a></li>
-                <li class="nav-item"><a href="aboutus.html" class="nav-link active">About Us</a></li>
-                <li class="nav-item"><a href="ProfileSelectPage.html" class="nav-link">Donate</a></li>
-                <li class="nav-item"><a href="SignUpPage.html" class="nav-link"id="id-head-login" >Login</a></li>
-                <li class="nav-item pl-5"><a href="#" class="nav-link WelcomeMsgActive" id="id-head-welcomeUser">Welcome ABC</a></li>
-                <div class="dropdown text-end">
-                <li class="nav-item d-flex justify-content-center align-items-center" id="id-head-img">
-                  <a a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pl-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="images/defaultImg.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                  <li><a class="dropdown-item" href="" id="id-signout">Sign out</a></li>
-                </ul>
+                  <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                  <li class="nav-item"><a href="Services.html" class="nav-link">Service</a></li>
+                  <li class="nav-item"><a href="aboutus.html" class="nav-link active">About Us</a></li>
+                  <li class="nav-item"><a href="ProfileSelectPage.html" class="nav-link">Donate</a></li>
+                  <li class="nav-item"><a href="SignUpPage.html" class="nav-link"id="id-head-login" >Login</a></li>
+                  <li class="nav-item pl-5"><a href="#" class="nav-link WelcomeMsgActive" id="id-head-welcomeUser">Welcome ABC</a></li>
+                  <div class="dropdown text-end">
+                  <li class="nav-item d-flex justify-content-center align-items-center" id="id-head-img">
+                    <a a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pl-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="images/defaultImg.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                  </a>
+                  <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                      <li><a class="dropdown-item hidden" href="adminDashboard.html" id="id-admindashboard">Admin Dashboard</a></li>
+                    <li><a class="dropdown-item hidden" href="ProfileUpdate.html" id="id-profileupdate">Update Profile</a></li>
+                    <li><a class="dropdown-item hidden" href="RecieverSignUp.html" id="id-addreciever">Add Reciever Profile</a></li>
+                      <li><a class="dropdown-item" href="" id="id-signout">Sign out</a></li>
+                    </ul>
+                  </li>
+                  </div>
                 </li>
-                </div>
-              </li>
-              </ul>
+                </ul>
             </header>
           </div>
     </div>
@@ -88,16 +91,55 @@
     ArrangeHeader();
  });
  
+
  function ArrangeHeader(){
-  
   let user = sessionStorage.getItem("NAME");
-    
     if(user !== null){
+        if(user == 'guest' || user == 'Anonymous'){
+          if(!$('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').addClass('hidden');
+          }
+          if(!$('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').addClass('hidden');
+          }
+          if(!$('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').addClass('hidden');
+          }
+        }else if (user == 'admin' || user == 'Admin'){
+          if(!$('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').addClass('hidden');
+          }
+          if($('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').removeClass('hidden');
+          }
+          if($('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').removeClass('hidden');
+          }
+        }else{
+          if($('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').removeClass('hidden');
+          }
+          if(!$('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').addClass('hidden');
+          }
+          if(!$('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').addClass('hidden');
+          }
+        }
         $('#id-head-login').addClass('hidden');
         $('#id-head-welcomeUser').removeClass('hidden');
-        $('#id-head-img').removeClass('hidden');       
+        $('#id-head-img').removeClass('hidden');    
         $('#id-head-welcomeUser').empty();
-        $('#id-head-welcomeUser').append('Welcome '+ user);   
+        $('#id-head-welcomeUser').append('Welcome '+ user);      
     }
     else{
       $('#id-head-welcomeUser').addClass('hidden');
@@ -105,7 +147,6 @@
       $('#id-head-login').removeClass('hidden');
     }
 }
-
  
 function API_getLastLogin(){
    console.log('API_getLastLogin');

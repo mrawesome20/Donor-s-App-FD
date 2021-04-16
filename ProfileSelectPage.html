@@ -18,6 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <main class="flex-shrink-0">
     <div>
         <!-- Header bar and Navigation Menu  -->
@@ -40,6 +41,9 @@
                     <img src="images/defaultImg.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item hidden" href="adminDashboard.html" id="id-admindashboard">Admin Dashboard</a></li>
+                    <li><a class="dropdown-item hidden" href="ProfileUpdate.html" id="id-profileupdate">Update Profile</a></li>
+                    <li><a class="dropdown-item hidden" href="RecieverSignUp.html" id="id-addreciever">Add Reciever Profile</a></li>
                   <li><a class="dropdown-item" href="" id="id-signout">Sign out</a></li>
                 </ul>
                 </li>
@@ -84,20 +88,75 @@
                 </div>
             </div>
         </footer>
-
-        
-<!-- The Modal -->
-<div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close" id="btn-modal-close">&times;</span>
-      <p>Some text in the Modal..</p>
-    </div>
-</div>
-  
+        <div id="myModal" class="modal">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><span id="id-modal-title">Please Select Amount</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="id-modalClose" onclick="CloseModal()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" id='id-modal-msg'>                
+                <div class="wrapper">
+                  <label>Amount to be Donated : </label>
+                  <form class="form-inline">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                      <div class="modaldollarstyle currency-symbol">$</div>
+                      <input type="text" class="form-control currency-amount" id="id-donationamt" placeholder="0.00" size="8">
+                      <div class="modaldollarstyle currency-addon currency-addon-fixed">USD</div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer" id='id-modalfooter'>
+                 <button type="button" class="btn btn-secondary" id="id-modalNo" data-dismiss="modal" onclick="CloseModal()">Close</button> 
+                 <button type="button" class="btn btn-primary" id="id-modalYes" onclick="DonateMoney()">Donate</button> 
+              </div> 
+            </div>
+          </div>        
+        </div>
+        <div id="myModal-login" class="modal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"><span id="id-modal-title">Important Alert !.</span></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="" id="" onclick="CloseModal()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id='id-modal-msg'>                
+                  Please Signup or Login into System.
+                </div>
+                <div class="modal-footer" id='id-modalfooter'>
+                   <button type="button" class="btn btn-secondary" id="" data-dismiss="modal" onclick="GotoSignUp()">Login/Signup</button> 
+                   <button type="button" class="btn btn-primary" id="" onclick="GuestLogin()">Donate as Guest</button> 
+                </div> 
+              </div>
+            </div>        
+          </div>
+          <div id="myModal-donation" class="modal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title"><span id="id-modal-title">Success !.</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="" id="" onclick="CloseSuccessDonation()">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" id='id-modal-msg'>                
+                    Thanks For Donation.
+                  </div>
+                  <div class="modal-footer " id='id-modalfooter'>
+                     <button type="button" class="btn btn-secondary" id="" data-dismiss="modal" onclick="CloseSuccessDonation()">Close</button> 
+                  </div> 
+                </div>
+              </div>        
+            </div>
   </body>
 </html>
 <script>
+  var DonateId = null;
   $(document).ready(function(){
     ArrangeHeader();
     API_getLastLogin();
@@ -109,10 +168,62 @@
     ArrangeHeader();
  });
 
+ function GotoSignUp(){
+  window.location.href = "SignUpPage.html";
+ }
+
+ function GuestLogin(){
+    sessionStorage.setItem("NAME",'Guest');
+    sessionStorage.setItem("Uname",'Guest');
+    $('#myModal-login').removeClass('displayblock');
+    $('#myModal-login').addClass('displaynone');
+    ArrangeHeader();
+ }
+
 
  function ArrangeHeader(){
   let user = sessionStorage.getItem("NAME");
     if(user !== null){
+        if(user == 'guest' || user == 'Anonymous'){
+          if(!$('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').addClass('hidden');
+          }
+          if(!$('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').addClass('hidden');
+          }
+          if(!$('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').addClass('hidden');
+          }
+        }else if (user == 'admin' || user == 'Admin'){
+          if(!$('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').addClass('hidden');
+          }
+          if($('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').removeClass('hidden');
+          }
+          if($('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').removeClass('hidden');
+          }
+        }else{
+          if($('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').removeClass('hidden');
+          }
+          if(!$('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').addClass('hidden');
+          }
+          if(!$('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').addClass('hidden');
+          }
+        }
         $('#id-head-login').addClass('hidden');
         $('#id-head-welcomeUser').removeClass('hidden');
         $('#id-head-img').removeClass('hidden');    
@@ -142,13 +253,18 @@ function API_getAllReciver(){
             for(var i = 0; i < data.length ; i++){
                 html += '<div class="col" id="id-profile"><div class="card shadow-sm">';
                 html += '<img class="bd-placeholder-img card-img-top" src="images/noImage.jpg" alt="mdo" width="100%" height="225">';
-                html += '<div class="card-body">';
+                html +='<p class="profilecardtitle">'+ data[i].firstname + ' ' + data[i].lastname +'</p>';
+                html += '<div class="card-body profilecardbody">';
                 html += '<p class="card-text">' + data[i].description + '</p>';
                 html += ' <div class="d-flex justify-content-between align-items-center">';
                 html += '<div class="btn-group">';
-                html += '<button type="button" class="btn btn-sm btn-outline-secondary">Donate</button>';
+                html += '<button type="button" class="btn btn-sm btn-outline-secondary" id="id-donate" onclick="onDonateClick('+data[i].id+')">Donate</button>';
                 html += '<button type="button" class="btn btn-sm btn-outline-secondary">Help in other way</button>';
-                html += '</div></div></div></div></div>';
+                html += '</div>'; 
+                if(sessionStorage.getItem("NAME") == 'Admin' || sessionStorage.getItem("NAME") == 'admin'){
+                  html +='<i class="material-icons" onclick="onDeleteClick('+ data[i].id +')">delete</i>';
+                }
+                html += '</div></div></div></div>';
             }
             $('#id-profile-display').empty();
             $('#id-profile-display').append(html);
@@ -160,6 +276,79 @@ function API_getAllReciver(){
     });
    }
 
+  function onDonateClick(id){
+    DonateId = null;
+    $('#myModal').removeClass('displaynone');
+    $('#myModal').addClass('displayblock');
+    $('#id-modalfooter').removeClass('hidden');
+    DonateId = id;
+  }
+
+  function onDeleteClick(R_id){
+    $.ajax(deleteRecieverAPI, {
+        type: 'POST',  // http method
+        data: { id : R_id
+               },  // data to submit
+        success: function (data, status, xhr) {
+                console.log(data);
+                if(data.length >0 ){
+                  var result = data[0];
+                  if(result[0].firstname == 'done'){
+                   //success MSg
+                   alert('Profile Deleted');
+                   API_getAllReciver();
+                  }
+                }
+                },
+          error: function (jqXhr, textStatus, errorMessage) {
+                  console.log(errorMessage);
+                }
+         });
+  }
+
+  function CloseSuccessDonation(){
+    $('#myModal-donation').removeClass('displayblock');
+    $('#myModal-donation').addClass('displaynone');
+  }
+  function DonateMoney(){
+    if(sessionStorage.getItem("Uname") == null){
+      $('#myModal-login').removeClass('displaynone');
+      $('#myModal-login').addClass('displayblock');
+    }else{
+    console.log($('#id-donationamt').val());
+    console.log('id of reciever :' + DonateId);
+    console.log('Username :' + sessionStorage.getItem("Uname"));
+    API_giveDonation();
+    }
+  }
+
+  function API_giveDonation(){
+    console.log('API_giveDonation');
+    var Amount = $('#id-donationamt').val();
+    $.ajax(giveDonationAPI, {
+        type: 'POST',  // http method
+        data: { receiver: DonateId , 
+                donationAmt :  $('#id-donationamt').val(),
+                uname : sessionStorage.getItem("Uname")
+               },  // data to submit
+        success: function (data, status, xhr) {
+                console.log(data);
+                if(data.length >0 ){
+                  var result = data[0];
+                  if(result[0].firstname == 'done'){
+                   //success MSg
+                  }
+                    $('#myModal').removeClass('displayblock');
+                    $('#myModal').addClass('displaynone');
+                    $('#myModal-donation').removeClass('displaynone');
+                    $('#myModal-donation').addClass('displayblock');
+                }
+                },
+          error: function (jqXhr, textStatus, errorMessage) {
+                  console.log(errorMessage);
+                }
+         });
+  }
    
 function API_getLastLogin(){
    console.log('API_getLastLogin');

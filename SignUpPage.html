@@ -41,8 +41,11 @@
                     <img src="images/defaultImg.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                  <li><a class="dropdown-item" href="" id="id-signout">Sign out</a></li>
-                </ul>
+                    <li><a class="dropdown-item hidden" href="adminDashboard.html" id="id-admindashboard">Admin Dashboard</a></li>
+                    <li><a class="dropdown-item hidden" href="ProfileUpdate.html" id="id-profileupdate">Update Profile</a></li>
+                    <li><a class="dropdown-item hidden" href="RecieverSignUp.html" id="id-addreciever">Add Reciever Profile</a></li>
+                    <li><a class="dropdown-item" href="" id="id-signout">Sign out</a></li>
+                  </ul>
                 </li>
                 </div>
               </li>
@@ -67,7 +70,7 @@
                       <button class="LogInButtonBkColor w-100 btn btn-lg btn-primary" type="button" id="btn-Login">Login</button>
                       <hr class="my-4">
                       <div class="d-flex justify-content-center align-items-center">
-                        <a class="text-muted d-flex justify-content-center smallTagSignUpOption smallTagBorderLeftSignUpOption" id="click-forgot">Forgot Password</a>
+                        <a class="text-muted d-flex justify-content-center smallTagSignUpOption smallTagBorderLeftSignUpOption" id="click-forgot" onclick="onForgotClick()">Forgot Password</a>
                         <a href="Registration.html" class="text-muted d-flex justify-content-center smallTagSignUpOption">Register</a>
                         <a id="id-guestlogin" class="text-muted d-flex justify-content-center smallTagSignUpOption">Donate as Guest</a>
                       </div>
@@ -90,7 +93,7 @@
                       <button class="LogInButtonBkColor w-100 btn btn-lg btn-primary" type="button" id="btn-ForgotPassword">Forgot Password</button>
                       <hr class="my-4">
                       <div class="d-flex justify-content-center align-items-center">
-                        <a class="text-muted d-flex justify-content-center smallTagSignUpOption smallTagBorderLeftSignUpOption" id="click-toLogin">LogIn</a>
+                        <a class="text-muted d-flex justify-content-center smallTagSignUpOption smallTagBorderLeftSignUpOption" onclick="loginClicked()" id="click-toLogin">LogIn</a>
                         <a href="Registration.html" class="text-muted d-flex justify-content-center smallTagSignUpOption">Register</a>
                         <a id="id-guestlogin" class="text-muted d-flex justify-content-center smallTagSignUpOption">Donate as Guest</a>
                       </div>
@@ -116,6 +119,24 @@
                 </div>
             </div>
         </footer>
+        <div id="myModal-invalid" class="modal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"><span id="id-modal-title">Alert !.</span></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="" id="" onclick="CloseInvalidModal()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id='id-modal-msg'>                
+                  Invalid Username or Password. 
+                </div>
+                <div class="modal-footer " id='id-modalfooter'>
+                   <button type="button" class="btn btn-secondary" id="" data-dismiss="modal" onclick="CloseInvalidModal()">Close</button> 
+                </div> 
+              </div>
+            </div>        
+          </div>
   </body>
 </html>
 <script>
@@ -129,6 +150,19 @@
     API_Login(name,password);
  });
 
+ function CloseInvalidModal(){
+     $('#myModal-invalid').removeClass('displayblock');
+     $('#myModal-invalid').addClass('displaynone');
+ }
+
+ function ShowInvalidModal(message = ''){
+    $('#myModal-invalid').removeClass('displaynone');
+    $('#myModal-invalid').addClass('displayblock');
+    if(message != ''){
+      $('#id-modal-msg').empty();
+      $('#id-modal-msg').append(message);
+    }
+ }
 
  $('#id-guestlogin').click(()=>{
     sessionStorage.removeItem("NAME");
@@ -144,7 +178,6 @@
 
  
  $('#btn-ForgotPassword').click(()=>{
-   debugger
    var name = $('#input-Fusername').val();
    var password = $('#input-Fpassword').val();
    var Cpassword = $('#input-Cpassword').val();
@@ -153,7 +186,7 @@
    if(password == Cpassword){
     API_ChangePassword(name,password);
    }else{
-     alert('Both password are not same');
+    ShowInvalidModal('Both password are not same');
    }
 
  });
@@ -164,7 +197,9 @@
     ArrangeHeader();
  });
 
- $('#click-forgot').click(()=>{
+
+
+ function onForgotClick(){
   if(!$('#div-login').hasClass('hidden')){
     $('#div-login').addClass('hidden');
   }else{
@@ -175,10 +210,9 @@
   }else{
     $('#div-forgotPassword').addClass('hidden');
   }
+ }
 
- });
-
- $('#click-toLogin').click(()=>{
+ function loginClicked(){
   if(!$('#div-login').hasClass('hidden')){
     $('#div-login').addClass('hidden');
   }else{
@@ -189,8 +223,7 @@
   }else{
     $('#div-forgotPassword').addClass('hidden');
   }
-
- });
+ }
  
  function API_ChangePassword(uname,pass){
    console.log('API_ChangePassword');
@@ -204,8 +237,11 @@
           console.log(result[0].firstname);
           if(result[0].firstname == 'updated')
           {
-              alert('Password Changed');
+              ShowInvalidModal('Password Changed');
               ArrangeHeader();
+              loginClicked();
+          }else if (result[0].firstname == 'nouser'){
+            ShowInvalidModal('Please Enter valid Username');
           }
         }
     },
@@ -232,7 +268,7 @@ function API_Login(uname,pass){
             if(result[0].firstname == 'lock')
             {
                 console.log('Invalid Login password');
-                alert('Invalid login password');
+                ShowInvalidModal('Invalid Username/login password');
                 sessionStorage.removeItem("NAME");
                 sessionStorage.removeItem("Uname");
                 ArrangeHeader();
@@ -252,21 +288,62 @@ function API_Login(uname,pass){
     });
    }
 
-   function ArrangeHeader(){
-    let user = sessionStorage.getItem("NAME");
+  
+ function ArrangeHeader(){
+  let user = sessionStorage.getItem("NAME");
     if(user !== null){
+        if(user == 'guest' || user == 'Anonymous'){
+          if(!$('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').addClass('hidden');
+          }
+          if(!$('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').addClass('hidden');
+          }
+          if(!$('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').addClass('hidden');
+          }
+        }else if (user == 'admin' || user == 'Admin'){
+          if(!$('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').addClass('hidden');
+          }
+          if($('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').removeClass('hidden');
+          }
+          if($('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').removeClass('hidden');
+          }
+        }else{
+          if($('#id-profileupdate').hasClass('hidden'))
+          {
+            $('#id-profileupdate').removeClass('hidden');
+          }
+          if(!$('#id-admindashboard').hasClass('hidden'))
+          {
+            $('#id-admindashboard').addClass('hidden');
+          }
+          if(!$('#id-addreciever').hasClass('hidden'))
+          {
+            $('#id-addreciever').addClass('hidden');
+          }
+        }
         $('#id-head-login').addClass('hidden');
         $('#id-head-welcomeUser').removeClass('hidden');
         $('#id-head-img').removeClass('hidden');    
         $('#id-head-welcomeUser').empty();
-        $('#id-head-welcomeUser').append('Welcome '+ user);    
+        $('#id-head-welcomeUser').append('Welcome '+ user);      
     }
     else{
       $('#id-head-welcomeUser').addClass('hidden');
       $('#id-head-img').addClass('hidden');
       $('#id-head-login').removeClass('hidden');
     }
- }
+}
 
 
 </script>
