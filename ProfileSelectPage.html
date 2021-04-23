@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -14,11 +14,20 @@
     <title>Donor's Club</title>
   </head>
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>  
+    <!-- <link rel="stylesheet" href="/scripts/timepicker.css">
+    <script src="/scripts/timepicker.js"></script> -->
     <main class="flex-shrink-0">
     <div>
         <!-- Header bar and Navigation Menu  -->
@@ -122,7 +131,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title"><span id="id-modal-title">Important Alert !.</span></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="" id="" onclick="CloseModal()">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="" id="" onclick="CloseLoginModal()">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -153,7 +162,97 @@
                   </div> 
                 </div>
               </div>        
-            </div>
+          </div>
+          <div id="myModal-otherdonation" class="modal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content w-auto">
+                <div class="modal-header">
+                  <h5 class="modal-title"><span id="id-modal-title">Make a Donation..</span></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="" id="" onclick="CloseOtherModal()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id='id-modal-msg'>      
+                  
+                      <div class="d-flex justify-content-between align-items-center">
+                          <div class="flex-fill">Choose a way of Donation :</div>
+                          <div class="flex-fill">
+                              <select class="form-select" aria-label="Default select example" id="selectdonationway">
+                                  <option selected>Select</option>
+                                  <option value="clothes">Donate Clothes</option>
+                                  <option value="food">Donate Food</option>
+                                  <option value="job">Have a Job</option>
+                                </select>
+                          </div>
+                        </div>
+                        <div id="id-pickup-div" class="hidden">
+
+                          <div class="d-flex justify-content-center align-items-center">
+                             <!-- <span>Please set a Pickup Time</span>  -->
+                            <h5 class="modal-title pt-3 pb-3"><span>Please set a Pickup Time</span></h5>
+                          </div>
+                          <div class="d-flex justify-content-between align-items-center">
+                              <div class="flex-fill">Date :</div>
+                              <div class="flex-fill">
+                                <input id="pk-date" placeholder="Select Date" style="width:80% !important;  border-right: 1px solid #ced4da;">
+                              </div>
+                          </div>
+                          <div class="d-flex justify-content-between align-items-center pt-3">
+                              <div class="flex-fill" style="flex-basis: 25% !important">Time-Slot :</div>
+                              <div class="flex-fill" style="flex-basis: 70% !important">
+                                  <select class="form-select" aria-label="Default select example">
+                                      <option selected>Select Time Slot</option>
+                                      <option value="1">10AM - 02PM</option>
+                                      <option value="2">04PM - 06PM</option>
+                                      <option value="3">06PM - 08PM</option>
+                                    </select>
+                              </div>
+                          </div>
+                          <div class="d-flex justify-content-between align-items-center pt-3">
+                              <div class="" style="flex-basis: 30%;">Address :</div>
+                              <div class=""style="flex-basis: 80%;">
+                                  <textarea class="form-control" id="" rows="3"></textarea>
+                              </div>
+                          </div>
+                        </div> 
+                        <div id="id-job-div" class="hidden">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <!-- <span>Please set a Pickup Time</span>  -->
+                               <h5 class="modal-title pt-3 pb-3"><span>Please set a Job Details & contact person</span></h5>
+                             </div>
+                             <div class="d-flex justify-content-between align-items-center pt-3">
+                                <div style="flex-basis: 30%">Job Title :</div>
+                                <div style="flex-basis: 70%">
+                                  <input class="form-control" id="jb-title" type="text" placeholder="Job Title"
+                                   style="width:100% !important;  border-right: 1px solid #ced4da;">
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center pt-3">
+                                <div style="flex-basis: 30%">Contact Person:</div>
+                                <div style="flex-basis: 70%">
+                                  <input class="form-control" id="jb-contactPerson" type="text" placeholder="Contact Person" 
+                                  style="width:100% !important;  border-right: 1px solid #ced4da;">
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center pt-3">
+                                <div style="flex-basis: 30%">Contact Number:</div>
+                                <div style="flex-basis: 70%">
+                                  <input class="form-control" id="jb-contactnumber" type="text" placeholder="Contact Person" 
+                                  style="width:100% !important;  border-right: 1px solid #ced4da;">
+                                </div>
+                            </div>
+                        </div>
+
+                  
+                      </div>
+                <div class="modal-footer " id='id-modalfooter'>
+                   <button type="button" class="btn btn-primary" id="" data-dismiss="modal" onclick="onConfirmClick()">Confirm</button>                   
+                   <button type="button" class="btn btn-secondary" id="" data-dismiss="modal" onclick="CloseOtherModal()">Close</button>
+                </div> 
+              </div>
+            </div>        
+        </div>
+          
   </body>
 </html>
 <script>
@@ -163,14 +262,23 @@
     API_getLastLogin();
     API_getAllReciver();
   });
+  $('#pk-date').datepicker({
+            uiLibrary: 'bootstrap4'
+    });
 
   $('#id-signout').click(()=>{
-  sessionStorage.removeItem("NAME")
+    sessionStorage.removeItem("NAME");
+    sessionStorage.removeItem("Uname");
     ArrangeHeader();
  });
 
  function GotoSignUp(){
   window.location.href = "SignUpPage.html";
+ }
+
+ function CloseLoginModal(){
+    $('#myModal-login').removeClass('displayblock');
+    $('#myModal-login').addClass('displaynone');
  }
 
  function GuestLogin(){
@@ -259,7 +367,7 @@ function API_getAllReciver(){
                 html += ' <div class="d-flex justify-content-between align-items-center">';
                 html += '<div class="btn-group">';
                 html += '<button type="button" class="btn btn-sm btn-outline-secondary" id="id-donate" onclick="onDonateClick('+data[i].id+')">Donate</button>';
-                // html += '<button type="button" class="btn btn-sm btn-outline-secondary">Help in other way</button>';
+                html += '<button type="button" class="btn btn-sm btn-outline-secondary" onclick="onOtherClick('+data[i].id +')">Help in other way</button>';
                 html += '</div>'; 
                 if(sessionStorage.getItem("NAME") == 'Admin' || sessionStorage.getItem("NAME") == 'admin'){
                   html +='<i class="material-icons" onclick="onDeleteClick('+ data[i].id +')">delete</i>';
@@ -306,6 +414,48 @@ function API_getAllReciver(){
          });
   }
 
+  $('#selectdonationway').change(function(){
+    // alert($('#selectdonationway').val());
+    if($('#selectdonationway').val().toLowerCase() == "clothes" || $('#selectdonationway').val().toLowerCase() == "food"){
+        if($('#id-pickup-div').hasClass('hidden')){  
+          $('#id-pickup-div').removeClass('hidden');
+        }
+        if(!$('#id-job-div').hasClass('hidden')){  
+          $('#id-job-div').addClass('hidden');
+        }
+    }else if($('#selectdonationway').val().toLowerCase() == "job"){
+      if(!$('#id-pickup-div').hasClass('hidden')){  
+          $('#id-pickup-div').addClass('hidden');
+        }
+        if($('#id-job-div').hasClass('hidden')){  
+          $('#id-job-div').removeClass('hidden');
+        }
+    }
+  });
+
+  function onOtherClick(id){
+    // myModal-otherdonation
+    if(sessionStorage.getItem("Uname") == null){
+      $('#myModal-login').removeClass('displaynone');
+      $('#myModal-login').addClass('displayblock');
+    }else{
+    $('#myModal-otherdonation').removeClass('displaynone');
+    $('#myModal-otherdonation').addClass('displayblock');
+    }
+  }
+
+  function onConfirmClick(){
+    $('#myModal-otherdonation').removeClass('displayblock');
+    $('#myModal-otherdonation').addClass('displaynone');
+
+    $('#myModal-donation').removeClass('displaynone');
+    $('#myModal-donation').addClass('displayblock');
+  }
+   
+   function CloseOtherModal(){
+    $('#myModal-otherdonation').removeClass('displayblock');
+    $('#myModal-otherdonation').addClass('displaynone');
+   }
   function CloseSuccessDonation(){
     $('#myModal-donation').removeClass('displayblock');
     $('#myModal-donation').addClass('displaynone');
